@@ -1,3 +1,6 @@
+'use strict'
+
+
 // database dependencies go here
 
 

@@ -1,3 +1,5 @@
+'use strict'
+
 const questionService = require('../services/questions.service')
 const { validationResult } = require('express-validator')
 

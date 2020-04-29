@@ -1,3 +1,5 @@
+'use strict'
+
 const repository = require('../repositories/questions.repository')
 
 module.exports = {
