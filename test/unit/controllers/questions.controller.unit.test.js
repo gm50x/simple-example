@@ -1,37 +1,42 @@
-const assert = require('assert')
+const { strictEqual } = require('assert')
 const proxyquire = require('proxyquire')
 
 describe('Questions Controller', () => {
     describe('GET /questions', () => {
         it('should return 200', async () => {
-            const { getAllQuestions } = proxyquire('../../../src/controllers/questions.controller', { '../services/questions.service': { getAllQuestions: successWithData } })
+            const { getAllQuestions } = proxyquire('../../../src/controllers/questions.controller',
+                { '../services/questions.service': { getAllQuestions: successWithData } })
             await getAllQuestions(req, res)
-            assert.strictEqual(response.value, 200)
+            strictEqual(response.value, 200)
         })
         it('should return 500', async () => {
-            const { getAllQuestions } = proxyquire('../../../src/controllers/questions.controller', { '../services/questions.service': { getAllQuestions: failure } })
+            const { getAllQuestions } = proxyquire('../../../src/controllers/questions.controller',
+                { '../services/questions.service': { getAllQuestions: failure } })
             await getAllQuestions(req, res)
-            assert.strictEqual(response.value, 500)
+            strictEqual(response.value, 500)
         })
     })
 
     describe('GET /questions/:id', () => {
         it('should return 200', async () => {
             req.params.id = 1
-            const { getQuestionById } = proxyquire('../../../src/controllers/questions.controller', { '../services/questions.service': { getQuestionById: successWithSingleData } })
+            const { getQuestionById } = proxyquire('../../../src/controllers/questions.controller',
+                { '../services/questions.service': { getQuestionById: successWithSingleData } })
             await getQuestionById(req, res)
-            assert.strictEqual(response.value, 200)
+            strictEqual(response.value, 200)
         })
         it('should return 404', async () => {
             req.params.id = 1
-            const { getQuestionById } = proxyquire('../../../src/controllers/questions.controller', { '../services/questions.service': { getQuestionById: successWithoutData } })
+            const { getQuestionById } = proxyquire('../../../src/controllers/questions.controller',
+                { '../services/questions.service': { getQuestionById: successWithoutData } })
             await getQuestionById(req, res)
-            assert.strictEqual(response.value, 404)
+            strictEqual(response.value, 404)
         })
         it('should return 500', async () => {
-            const { getQuestionById } = proxyquire('../../../src/controllers/questions.controller', { '../services/questions.service': { getQuestionById: failure } })
+            const { getQuestionById } = proxyquire('../../../src/controllers/questions.controller',
+                { '../services/questions.service': { getQuestionById: failure } })
             await getQuestionById(req, res)
-            assert.strictEqual(response.value, 500)
+            strictEqual(response.value, 500)
         })
     })
 })
@@ -70,7 +75,7 @@ const successWithoutData = () => {
 }
 
 const failure = () => {
-    return Promise.reject({message: 'Testing errors'})
+    return Promise.reject({ message: 'Testing errors' })
 }
 
 const mock = [
